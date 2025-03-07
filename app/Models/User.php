@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'role',
         'name',
         'email',
         'password',
@@ -44,5 +45,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+    public function hasAnyRole($roles)
+    {
+        return in_array($this->role, (array) $roles);
     }
 }
