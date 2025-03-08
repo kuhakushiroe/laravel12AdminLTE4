@@ -48,25 +48,27 @@
                         <p>MCU</p>
                     </a>
                 </li>
-                <li class="nav-header">Component</li>
-                <li class="nav-item">
-                    <a href="table" class="nav-link">
-                        <i class="nav-icon bi bi-table"></i>
-                        <p>Table</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="chart" class="nav-link">
-                        <i class="nav-icon bi bi-bar-chart"></i>
-                        <p>Chart</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="proses" class="nav-link">
-                        <i class="nav-icon bi bi-hourglass-split"></i>
-                        <p>Proses</p>
-                    </a>
-                </li>
+                @hasAnyRole('superadmin')
+                    <li class="nav-header">Component</li>
+                    <li class="nav-item">
+                        <a href="table" class="nav-link">
+                            <i class="nav-icon bi bi-table"></i>
+                            <p>Table</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="chart" class="nav-link">
+                            <i class="nav-icon bi bi-bar-chart"></i>
+                            <p>Chart</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="proses" class="nav-link">
+                            <i class="nav-icon bi bi-hourglass-split"></i>
+                            <p>Proses</p>
+                        </a>
+                    </li>
+                @endhasAnyRole
             </ul>
             <!--end::Sidebar Menu-->
         </nav>

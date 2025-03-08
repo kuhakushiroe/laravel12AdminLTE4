@@ -13,17 +13,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('users', Users::class)->name('users');
     Route::get('karyawan', Karyawan::class)->name('karyawan');
     Route::get('mcu', Mcu::class)->name('mcu');
-    Route::get('/table', function () {
-        return view('layouts.try.table');
-    })->middleware('role:admin')->name('table');;
 
-    Route::get('/chart', function () {
-        return view('layouts.try.chart');
-    })->name('chart');
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('/table', function () {
+            return view('layouts.try.table');
+        })->name('table');;
 
-    Route::get('/proses', function () {
-        return view('layouts.try.proses');
-    })->name('proses');
+        Route::get('/chart', function () {
+            return view('layouts.try.chart');
+        })->name('chart');
+
+        Route::get('/proses', function () {
+            return view('layouts.try.proses');
+        })->name('proses');
+    });
+
 
     Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 });

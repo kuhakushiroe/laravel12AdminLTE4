@@ -1,6 +1,6 @@
 <div>
     @if ($form)
-        <div class="row mb-3">
+        <div class="row mb-1">
             <div class="col-md-3">
                 <button class="btn btn-outline-secondary btn-sm" wire:click="close">
                     <span class="bi bi-arrow-left"></span>
@@ -8,19 +8,21 @@
             </div>
         </div>
     @else
-        <div class="row mb-3">
+        <div class="row p-2">
             <div class="col-md-3">
-                <input type="text"class="form-control" placeholder="Search" livewire:model.live="search">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-3">
-                <button class="btn btn-outline-success btn-sm" wire:click="open">
-                    <span class="bi bi-plus"></span>
+                <button class="btn btn-dark btn-sm" wire:click="open">
+                    <span class="bi bi-plus-square"></span>
+                    &nbsp;User
                 </button>
             </div>
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-3">
+                <input type="text"class="form-control form-control-sm" placeholder="Search" wire:model.live="search">
+            </div>
         </div>
-        <div class="table table-responsive">
+        <div class="table table-responsive p-2">
             <table class="table table-striped">
                 <thead>
                     <tr>
