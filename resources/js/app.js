@@ -1,4 +1,46 @@
 // import './bootstrap';
+import Swal from 'sweetalert2';
+window.addEventListener('alert', (event) => {
+    let data = event.detail;
+
+    Swal.fire({
+        position: data.position,
+        icon: data.type,
+        title: data.title,
+        text: data.text,
+        showConfirmButton: data.confirm,
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Lakukan redirect di sini
+            window.location.href = data.redirect;
+        }
+    });
+});
+window.addEventListener('confirm', (event) => {
+    let data = event.detail;
+    Swal.fire({
+        title: "Are you sure?",
+        // text: `You won't be able to revert this! Item ID: ${data.id}`,
+        text: `You won't be able to revert this!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Livewire.dispatch('delete', { id: data.id });
+            Swal.fire({
+                title: "Deleted!",
+                // text: `Your file with ID: ${data.id} has been deleted.`,
+                text: `Your data has been deleted.`,
+                icon: "success"
+            });
+        }
+    });
+});
+
 (() => {
     "use strict";
 

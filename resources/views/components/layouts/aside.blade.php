@@ -36,6 +36,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/departments" class="nav-link @if ($routeName == 'departments') active @endif">
+                        <i class="nav-icon bi bi-people"></i>
+                        <p>Departments</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/karyawan" class="nav-link @if ($routeName == 'karyawan') active @endif">
                         <i class="nav-icon bi bi-people"></i>
                         <p>Karyawan</p>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Departments\Departments;
 use App\Livewire\Home\Home;
 use App\Livewire\Karyawan\Karyawan;
 use App\Livewire\Mcu\Mcu;
@@ -13,8 +14,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('users', Users::class)->name('users');
     Route::get('karyawan', Karyawan::class)->name('karyawan');
     Route::get('mcu', Mcu::class)->name('mcu');
-
-    Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('departments', Departments::class)->name('departments');
+    Route::group(['middleware' => ['role:superadmin']], function () {
         Route::get('/table', function () {
             return view('layouts.try.table');
         })->name('table');;
