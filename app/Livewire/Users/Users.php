@@ -30,11 +30,12 @@ class Users extends Component
     }
     public function store()
     {
+        // Validasi input
         $this->validate([
             'name' => 'required',
-            'username' => 'required|unique:users,username',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'username' => 'required|unique:users,username,' . $this->id_user,  // Menambahkan pengecualian untuk edit
+            'email' => 'required|email|unique:users,email,' . $this->id_user,  // Menambahkan pengecualian untuk edit
+            'password' => $this->id_user ? 'nullable' : 'required',  // Password wajib diisi saat store
             'role' => 'required',
             'subrole' => 'required_if:role,admin',
         ], [
@@ -49,25 +50,30 @@ class Users extends Component
             'subrole.required_if' => 'Subrole Harus Diisi jika Role adalah Admin',
         ]);
 
-        User::updateOrCreate([
-            'id' => $this->id_user
-        ], [
+        // Jika password tidak kosong, hash password tersebut
+        $userData = [
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
-            'password' => Hash::make($this->password),
+            'password' => Hash::make($this->password),  // Hash password
             'role' => $this->role,
             'subrole' => $this->subrole
-        ]);
+        ];
+
+        // Simpan atau update user data, gunakan updateOrCreate jika ingin mengupdate berdasarkan id
+        User::updateOrCreate([
+            'id' => $this->id_user
+        ], $userData);
 
         $this->close();
 
+        // Reset input fields
         $this->reset(['name', 'username', 'email', 'password', 'role', 'subrole']);
-        if (!empty($this->id_user)) {
-            $jenis = 'Edit';
-        } else {
-            $jenis = 'Tambah';
-        }
+
+        // Tentukan jenis aksi (Tambah/Edit)
+        $jenis = !empty($this->id_user) ? 'Edit' : 'Tambah';
+
+        // Kirim notifikasi sukses
         $this->dispatch(
             'alert',
             type: 'success',
@@ -77,8 +83,10 @@ class Users extends Component
             confirm: true,
             redirect: '/users',
         );
+
         return;
     }
+
     public function delete(int $id)
     {
         User::find($id)->delete();
@@ -96,10 +104,32 @@ class Users extends Component
     }
     public function edit($id)
     {
-        return auth()->user()->hasRole('karyawan')
-            ? redirect()->to('/notfound/users')
-            : $this->form = true;
+        // Cek apakah user memiliki role 'superadmin', jika iya redirect ke halaman /notfound/users
+        if (auth()->user()->hasRole('superadmin')) {
+            return redirect()->to('/notfound/users');
+        }
+
+        // Ambil data pengguna berdasarkan ID
+        $user = User::find($id);
+
+        if (!$user) {
+            // Jika user tidak ditemukan, redirect atau memberikan response yang sesuai
+            return redirect()->to('/notfound/users');
+        }
+
+        // Set data user ke dalam properti yang sesuai
+        $this->name = $user->name;
+        $this->username = $user->username;
+        $this->email = $user->email;
+        $this->role = $user->role;
+        $this->subrole = $user->subrole;
+        $this->id_user = $user->id; // Tidak perlu menampilkan atau menyertakan password saat edit
+
+        // Set flag form menjadi true jika tidak ada redirect
+        $this->form = true;
     }
+
+
     public function render()
     {
         $departments = Departments::all();

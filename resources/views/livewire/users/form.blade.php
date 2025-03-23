@@ -62,16 +62,18 @@
                         @enderror
                     </div>
                 @endif
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password"
-                        class="form-control form-control-sm
+                @if (empty($id_user))
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password"
+                            class="form-control form-control-sm
                     @error('password') is-invalid @enderror"
-                        wire:model="password" placeholder="password">
-                    @error('password')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                    @enderror
-                </div>
+                            wire:model="password" placeholder="password">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                @endif
                 <div class="form-group">
                     <label for="Email">Email</label>
                     <input type="email"
