@@ -20,8 +20,10 @@ class User extends Authenticatable
     protected $fillable = [
         'role',
         'name',
+        'username',
         'email',
         'password',
+        'subrole',
     ];
 
     /**
@@ -53,5 +55,9 @@ class User extends Authenticatable
     public function hasAnyRole($roles)
     {
         return in_array($this->role, (array) $roles);
+    }
+    public function subsRole($subroles)
+    {
+        return in_array($this->subroles, (array) $subroles);
     }
 }

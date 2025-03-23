@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['superadmin', 'admin', 'karyawan', 'dokter', 'she', 'pimpinan'])->default('karyawan');
+            //
+            $table->string('username')->unique();
         });
     }
 
@@ -23,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn('role');
+            $table->dropColumn('username');
         });
     }
 };
