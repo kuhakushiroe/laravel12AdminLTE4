@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Users;
 
+use App\Models\Departments;
 use App\Models\User;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -101,7 +102,11 @@ class Users extends Component
     }
     public function render()
     {
+        $departments = Departments::all();
         $users = User::where('name', 'like', '%' . $this->search . '%')->paginate(10);
-        return view('livewire.users.users', compact('users'));
+        return view('livewire.users.users', [
+            'users' => $users,
+            'departments' => $departments
+        ]);
     }
 }

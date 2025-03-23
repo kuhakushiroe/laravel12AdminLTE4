@@ -49,10 +49,14 @@
                 @if ($role === 'admin')
                     <div class="form-group">
                         <label for="subrole">Sub Role</label>
-                        <input type="text"
-                            class="form-control form-control-sm
-                    @error('subrole') is-invalid @enderror"
-                            wire:model="subrole" placeholder="subrole">
+                        <select class="form-control form-control-sm @error('subrole') is-invalid @enderror"
+                            wire:model.live="subrole">
+                            <option value="">Pilih Sub Role</option>
+                            @forelse ($departments as $data)
+                                <option value="{{ $data->name_department }}">{{ $data->name_department }}</option>
+                            @empty
+                            @endforelse
+                        </select>
                         @error('subrole')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
