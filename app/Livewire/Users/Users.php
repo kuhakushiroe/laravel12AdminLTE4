@@ -133,7 +133,13 @@ class Users extends Component
     public function render()
     {
         $departments = Departments::all();
-        $users = User::where('name', 'like', '%' . $this->search . '%')->paginate(10);
+        if (auth()->user()->hasRole('admin')) {
+            $users = User::where('name', 'like', '%' . $this->search . '%')
+                ->where('subrole', '=', auth()->user()->subrole)
+                ->paginate(10);
+        } else {
+            $users = User::where('name', 'like', '%' . $this->search . '%')->paginate(10);
+        }
         return view('livewire.users.users', [
             'users' => $users,
             'departments' => $departments

@@ -40,7 +40,7 @@ class Departments extends Component
     {
         $this->validate([
             'name_department' => 'required|min:2',
-            'description_department' => 'required|min:16',
+            'description_department' => 'required',
         ], [
             'name_department.required' => 'Name Department Harus Diisi',
             'name_department.min' => 'Name Department Minimal 8 Karakter',

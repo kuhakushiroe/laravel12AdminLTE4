@@ -21,9 +21,11 @@
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
+                        <th>Username</th>
                         <th>Name</th>
                         <th>Role</th>
                         <th>Sub Role</th>
+                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,9 +42,11 @@
                                     </button>
                                 @endhasanyrole
                             </td>
+                            <td>{{ $user->username }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->role }}</td>
                             <td>{{ $user->subrole }}</td>
+                            <td>{{ $user->email }}</td>
                         </tr>
                     @endforeach
                 </tbody>

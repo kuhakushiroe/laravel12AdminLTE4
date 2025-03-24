@@ -22,7 +22,22 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Blade::if('hasAnyRole', function ($roles) {
-            return auth()->check() && auth()->user()->hasAnyRole($roles);
+            $user = auth()->user();
+
+            if (!$user) {
+                return false;
+            }
+
+            // Jika role adalah 'admin', periksa subrole
+            if ($user->hasRole('admin')) {
+                // Misalnya, jika subrole admin adalah 'superadmin'
+                if ($user->subrole == 'superadmin') {
+                    return true;
+                }
+            }
+
+            // Jika bukan admin, periksa role biasa
+            return $user->hasAnyRole($roles);
         });
     }
 }

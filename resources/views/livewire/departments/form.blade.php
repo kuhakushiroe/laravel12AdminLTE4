@@ -32,7 +32,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm">
+                    <button type="submit" class="btn btn-primary btn-sm float-right mt-2">
                         <span class="bi bi-save"></span>
                         &nbsp;Save
                     </button>

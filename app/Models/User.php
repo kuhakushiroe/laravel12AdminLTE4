@@ -52,11 +52,15 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
+    public function hasSubRole($subrole)
+    {
+        return $this->subrole === $subrole;
+    }
     public function hasAnyRole($roles)
     {
         return in_array($this->role, (array) $roles);
     }
-    public function subsRole($subroles)
+    public function subRole($subroles)
     {
         return in_array($this->subroles, (array) $subroles);
     }
