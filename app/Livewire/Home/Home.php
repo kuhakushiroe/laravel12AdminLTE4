@@ -3,6 +3,7 @@
 namespace App\Livewire\Home;
 
 use App\Models\Departments;
+use App\Models\Karyawan;
 use Livewire\Component;
 
 class Home extends Component
@@ -29,18 +30,27 @@ class Home extends Component
         ];
         $employeeCounts = [];
         foreach ($departments as $department) {
-            $employeeCounts[] = rand(100, 1000); // Angka acak antara 100 hingga 1000 karyawan
+            // Count the number of employees in each department
+            $employeeCounts[] = Karyawan::where('dept', $department->name_department)->count();
         }
 
-        // Pastikan jumlah warna cukup, ulangi warna jika jumlah departemen lebih banyak
+        // Ensure there are enough colors; repeat if needed
         $assignedColors = [];
         foreach ($departments as $index => $department) {
-            $assignedColors[] = $colors[$index % count($colors)];  // Gunakan modulus untuk mengulang warna
+            $assignedColors[] = $colors[$index % count($colors)];  // Use modulus to cycle through colors
         }
+
+        $jumlahKaryawan = Karyawan::all()->count();
+        $jumlahKaryawanAktif = Karyawan::where('status', 'aktif')->count();
+        $jumlahKaryawanNonAktif = Karyawan::where('status', 'non aktif')->count();
+
         return view('livewire.home.home', [
             'departments' => $departments,
             'assignedColors' => $assignedColors,
-            'employeeCounts' => $employeeCounts
+            'employeeCounts' => $employeeCounts,
+            'jumlahKaryawan' => $jumlahKaryawan,
+            'jumlahKaryawanAktif' => $jumlahKaryawanAktif,
+            'jumlahKaryawanNonAktif' => $jumlahKaryawanNonAktif
         ]);
     }
 }

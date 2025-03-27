@@ -2,7 +2,7 @@
     @if ($form)
         @include('livewire.departments.form')
     @else
-        <div class="row p-2">
+        <div class="row pt-2">
             <div class="col-md-3">
                 <button class="btn btn-dark btn-sm" wire:click="open">
                     <span class="bi bi-plus-square"></span>
@@ -16,7 +16,7 @@
                 <input type="text"class="form-control form-control-sm" placeholder="Search" wire:model.live="search">
             </div>
         </div>
-        <div class="table table-responsive p-2">
+        <div class="table table-responsive pt-2">
             <table class="table table-striped">
                 <thead>
                     <tr>

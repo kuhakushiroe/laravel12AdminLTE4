@@ -29,18 +29,20 @@
                     </a>
                 </li>
                 <li class="nav-header">Master Data</li>
-                <li class="nav-item">
-                    <a href="/users" class="nav-link @if ($routeName == 'users') active @endif">
-                        <i class="nav-icon bi bi-people"></i>
-                        <p>Users</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/departments" class="nav-link @if ($routeName == 'departments') active @endif">
-                        <i class="nav-icon bi bi-people"></i>
-                        <p>Departments</p>
-                    </a>
-                </li>
+                @hasAnyRole('superadmin')
+                    <li class="nav-item">
+                        <a href="/users" class="nav-link @if ($routeName == 'users') active @endif">
+                            <i class="nav-icon bi bi-people"></i>
+                            <p>Users</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/departments" class="nav-link @if ($routeName == 'departments') active @endif">
+                            <i class="nav-icon bi bi-people"></i>
+                            <p>Departments</p>
+                        </a>
+                    </li>
+                @endhasAnyRole
                 <li class="nav-item">
                     <a href="/karyawan" class="nav-link @if ($routeName == 'karyawan') active @endif">
                         <i class="nav-icon bi bi-people"></i>

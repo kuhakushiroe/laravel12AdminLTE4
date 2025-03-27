@@ -8,7 +8,7 @@
                 </span>
                 <div class="info-box-content">
                     <span class="info-box-text">Karyawan</span>
-                    <span class="info-box-number">2,000</span>
+                    <span class="info-box-number">{{ $jumlahKaryawan }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -21,7 +21,7 @@
                 </span>
                 <div class="info-box-content">
                     <span class="info-box-text">Karyawan Aktif</span>
-                    <span class="info-box-number">2,000</span>
+                    <span class="info-box-number">{{ $jumlahKaryawanAktif }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -34,7 +34,7 @@
                 </span>
                 <div class="info-box-content">
                     <span class="info-box-text">Karyawan Non Aktif</span>
-                    <span class="info-box-number">2,000</span>
+                    <span class="info-box-number">{{ $jumlahKaryawanNonAktif }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

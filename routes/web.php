@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', Home::class)->name('home');
-    Route::get('users', Users::class)->name('users');
     Route::get('karyawan', Karyawan::class)->name('karyawan');
     Route::get('mcu', Mcu::class)->name('mcu');
-    Route::get('departments', Departments::class)->name('departments');
     Route::group(['middleware' => ['role:superadmin']], function () {
+        Route::get('users', Users::class)->name('users');
+        Route::get('departments', Departments::class)->name('departments');
         Route::get('/table', function () {
             return view('layouts.try.table');
         })->name('table');;
@@ -23,7 +23,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/chart', function () {
             return view('layouts.try.chart');
         })->name('chart');
-
         Route::get('/proses', function () {
             return view('layouts.try.proses');
         })->name('proses');
