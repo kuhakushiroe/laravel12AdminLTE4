@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
         $faker = Faker::create(); // Membuat objek Faker untuk menghasilkan data acak
 
         // Loop untuk membuat 100 data karyawan
-        foreach (range(1, 1000) as $index) {
+        foreach (range(1, 100) as $index) {
             // Insert data karyawan dengan menggunakan Faker untuk data acak
             DB::table('karyawans')->insert([
                 'nik' => $faker->unique()->numerify('###########'), // NIK acak, angka 11 digit

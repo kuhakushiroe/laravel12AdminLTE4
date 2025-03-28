@@ -36,13 +36,29 @@
                                     <button class="btn btn-outline-warning btn-sm" wire:click="edit({{ $user->id }})">
                                         <span class="bi bi-pencil"></span>
                                     </button>
-                                    <button class="btn btn-outline-danger btn-sm"
-                                        wire:click="deleteConfirm({{ $user->id }})">
-                                        <span class="bi bi-trash"></span>
-                                    </button>
+                                    @if ($user->deleted_at)
+                                        <button class="btn btn-outline-success btn-sm"
+                                            wire:click="restore({{ $user->id }})">
+                                            <span class="bi bi-repeat"></span>
+                                        </button>
+                                    @else
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            wire:click="deleteConfirm({{ $user->id }})">
+                                            <span class="bi bi-trash"></span>
+                                        </button>
+                                    @endif
                                 @endhasanyrole
                             </td>
-                            <td>{{ $user->username }}</td>
+                            <td>
+                                @if ($user->deleted_at)
+                                    <i class="text-decoration-line-through">
+                                        {{ $user->username }}
+                                        {{ $user->deleted_at ? ' Deleted ' : '' }}
+                                    </i>
+                                @else
+                                    {{ $user->username }}
+                                @endif
+                            </td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->role }}</td>
                             <td>{{ $user->subrole }}</td>

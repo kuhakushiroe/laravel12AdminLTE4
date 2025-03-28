@@ -14,24 +14,24 @@ return new class extends Migration
         //
         Schema::create('karyawans', function (Blueprint $table) {
             $table->id();
-            $table->sting('foto')->nullable();
-            $table->string('nik')->unique();
+            $table->string('foto')->nullable();
+            $table->string('nik')->nullable();
             $table->string('nrp')->unique();
-            $table->date('tgl_lahir');
+            $table->date('tgl_lahir')->nullable();
             $table->string('nama');
-            $table->string('jenis_kelamin')->enum('laki-laki', 'perempuan');
-            $table->string('tempat_lahir');
-            $table->string('agama')->enum('Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu');
-            $table->string('gol_darah')->enum('A', 'B', 'AB', 'O');
-            $table->string('status_perkawinan')->enum('menikah', 'belum menikah');
-            $table->string('perusahaan');
-            $table->string('kontraktor');
-            $table->string('dept');
-            $table->string('jabatan');
-            $table->string('no_hp');
-            $table->string('alamat');
-            $table->string('domisili')->enum('lokal', 'non lokal');
-            $table->string('status')->enum('aktif', 'non aktif');
+            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan'])->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu'])->nullable();
+            $table->enum('gol_darah', ['A', 'B', 'AB', 'O'])->nullable();
+            $table->enum('status_perkawinan', ['menikah', 'belum menikah'])->nullable();
+            $table->string('perusahaan')->nullable();
+            $table->string('kontraktor')->nullable();
+            $table->string('dept')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->string('alamat')->nullable();
+            $table->enum('domisili', ['lokal', 'non lokal'])->nullable();
+            $table->enum('status', ['aktif', 'non aktif'])->nullable();
             $table->timestamps();
         });
     }

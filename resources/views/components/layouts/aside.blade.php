@@ -28,30 +28,39 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-header">Master Data</li>
-                @hasAnyRole('superadmin')
+                @hasAnyRole(['superadmin', 'admin'])
+                    <li class="nav-header">Master Data</li>
+                    @hasAnyRole('superadmin')
+                        <li class="nav-item">
+                            <a href="/users" class="nav-link @if ($routeName == 'users') active @endif">
+                                <i class="nav-icon bi bi-people"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/departments" class="nav-link @if ($routeName == 'departments') active @endif">
+                                <i class="nav-icon bi bi-person-badge"></i>
+                                <p>Departments</p>
+                            </a>
+                        </li>
+                    @endhasAnyRole
                     <li class="nav-item">
-                        <a href="/users" class="nav-link @if ($routeName == 'users') active @endif">
+                        <a href="/karyawan" class="nav-link @if ($routeName == 'karyawan') active @endif">
                             <i class="nav-icon bi bi-people"></i>
-                            <p>Users</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/departments" class="nav-link @if ($routeName == 'departments') active @endif">
-                            <i class="nav-icon bi bi-people"></i>
-                            <p>Departments</p>
+                            <p>Karyawan</p>
                         </a>
                     </li>
                 @endhasAnyRole
-                <li class="nav-item">
-                    <a href="/karyawan" class="nav-link @if ($routeName == 'karyawan') active @endif">
-                        <i class="nav-icon bi bi-people"></i>
-                        <p>Karyawan</p>
-                    </a>
-                </li>
                 <li class="nav-header">Pengajuan</li>
                 <li class="nav-item">
                     <a href="mcu" class="nav-link @if ($routeName == 'mcu') active @endif">
+                        <i class="nav-icon bi bi-hospital"></i>
+                        <p>MCU</p>
+                    </a>
+                </li>
+                <li class="nav-header">Histori</li>
+                <li class="nav-item">
+                    <a href="histori-mcu" class="nav-link @if ($routeName == 'histori-mcu') active @endif">
                         <i class="nav-icon bi bi-hospital"></i>
                         <p>MCU</p>
                     </a>

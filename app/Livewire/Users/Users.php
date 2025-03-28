@@ -98,6 +98,23 @@ class Users extends Component
             id: $id
         );
     }
+    public function restoreAll()
+    {
+        // Mengembalikan semua data yang di-soft delete
+        User::withTrashed()->restore();
+    }
+    public function restore(int $id)
+    {
+        // Mencari data yang sudah di-soft delete dengan menggunakan withTrashed()
+        $user = User::withTrashed()->find($id);
+
+        if ($user) {
+            // Mengembalikan data yang telah di-soft delete
+            $user->restore();
+        } else {
+            // Menangani jika data tidak ditemukan
+        }
+    }
     public function mount()
     {
         $this->close();
@@ -134,11 +151,12 @@ class Users extends Component
     {
         $departments = Departments::all();
         if (auth()->user()->hasRole('admin')) {
-            $users = User::where('name', 'like', '%' . $this->search . '%')
+            $users = User::whereAny(['name', 'username', 'email'], 'like', '%' . $this->search . '%')
                 ->where('subrole', '=', auth()->user()->subrole)
+                ->withTrashed()
                 ->paginate(10);
         } else {
-            $users = User::where('name', 'like', '%' . $this->search . '%')->paginate(10);
+            $users = User::whereAny(['name', 'username', 'email'], 'like', '%' . $this->search . '%')->withTrashed()->paginate(10);
         }
         return view('livewire.users.users', [
             'users' => $users,

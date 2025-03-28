@@ -2,19 +2,19 @@
 @section('content')
     <div class="login-box">
         <div class="login-logo">
-            <a href="/"><b>APP</b>G</a>
+            <a href="/"><b>APP</b> SHE-G</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Login</p>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="input-group mb-3">
                         <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
                             placeholder="Email / Username / NRP" name="email" value="{{ old('email') }}" required
                             autocomplete="email" autofocus />
-                        <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+                        <div class="input-group-text"><span class="bi bi-people"></span></div>
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

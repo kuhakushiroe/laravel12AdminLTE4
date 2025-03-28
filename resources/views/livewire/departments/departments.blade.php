@@ -8,6 +8,12 @@
                     <span class="bi bi-plus-square"></span>
                     &nbsp;Department
                 </button>
+                @hasAnyRole(['superadmin'])
+                    <button class="btn btn-danger btn-sm" wire:click="restoreAll">
+                        <span class="bi bi-arrow-clockwise"></span>
+                        &nbsp;Restore Delete
+                    </button>
+                @endhasanyrole
             </div>
             <div class="col-md-6">
                 &nbsp;
@@ -32,12 +38,28 @@
                                 <button class="btn btn-outline-warning btn-sm" wire:click="edit({{ $data->id }})">
                                     <span class="bi bi-pencil"></span>
                                 </button>
-                                <button class="btn btn-outline-danger btn-sm"
-                                    wire:click="deleteConfirm({{ $data->id }})">
-                                    <span class="bi bi-trash"></span>
-                                </button>
+                                @if ($data->deleted_at)
+                                    <button class="btn btn-outline-success btn-sm"
+                                        wire:click="restore({{ $data->id }})">
+                                        <span class="bi bi-repeat"></span>
+                                    </button>
+                                @else
+                                    <button class="btn btn-outline-danger btn-sm"
+                                        wire:click="deleteConfirm({{ $data->id }})">
+                                        <span class="bi bi-trash"></span>
+                                    </button>
+                                @endif
                             </td>
-                            <td>{{ $data->name_department }}</td>
+                            <td>
+                                @if ($data->deleted_at)
+                                    <i class="text-decoration-line-through">
+                                        {{ $data->name_department }}
+                                        {{ $data->deleted_at ? ' Deleted ' : '' }}
+                                    </i>
+                                @else
+                                    {{ $data->name_department }}
+                                @endif
+                            </td>
                             <td>{{ $data->description_department }}</td>
                         </tr>
                     @empty

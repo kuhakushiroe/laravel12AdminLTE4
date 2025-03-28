@@ -82,13 +82,32 @@ class Departments extends Component
             id: $id
         );
     }
+    public function restoreAll()
+    {
+        // Mengembalikan semua data yang di-soft delete
+        ModelsDepartments::withTrashed()->restore();
+    }
+    public function restore(int $id)
+    {
+        // Mencari data yang sudah di-soft delete dengan menggunakan withTrashed()
+        $department = ModelsDepartments::withTrashed()->find($id);
+
+        if ($department) {
+            // Mengembalikan data yang telah di-soft delete
+            $department->restore();
+        } else {
+            // Menangani jika data tidak ditemukan
+        }
+    }
     public function mount()
     {
         $this->close();
     }
     public function render()
     {
-        $departments = ModelsDepartments::where('name_department', 'like', '%' . $this->search . '%')->paginate(5);
+        $departments = ModelsDepartments::where('name_department', 'like', '%' . $this->search . '%')
+            ->withTrashed()
+            ->paginate(5);
         return view('livewire.departments.departments', [
             'departments' => $departments,
         ]);

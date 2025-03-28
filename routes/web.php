@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportKaryawans;
 use App\Livewire\Departments\Departments;
 use App\Livewire\Home\Home;
 use App\Livewire\Karyawan\Karyawan;
@@ -14,6 +15,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('karyawan', Karyawan::class)->name('karyawan');
     Route::get('mcu', Mcu::class)->name('mcu');
     Route::group(['middleware' => ['role:superadmin']], function () {
+        //Route::get('export-karyawans', [Karyawan::class, 'export'])->name('export-karyawans');
         Route::get('users', Users::class)->name('users');
         Route::get('departments', Departments::class)->name('departments');
         Route::get('/table', function () {

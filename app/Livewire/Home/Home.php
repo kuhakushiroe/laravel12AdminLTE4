@@ -28,10 +28,16 @@ class Home extends Component
             '#FFFF00',
             '#FF4500'
         ];
-        $employeeCounts = [];
+        $employeeCountsAktif = [];
         foreach ($departments as $department) {
             // Count the number of employees in each department
-            $employeeCounts[] = Karyawan::where('dept', $department->name_department)->count();
+            $employeeCountsAktif[] = Karyawan::where('dept', $department->name_department)->where('status', 'aktif')->count();
+        }
+
+        $employeeCountsNonAktif = [];
+        foreach ($departments as $department) {
+            // Count the number of employees in each department
+            $employeeCountsNonAktif[] = Karyawan::where('dept', $department->name_department)->where('status', 'non aktif')->count();
         }
 
         // Ensure there are enough colors; repeat if needed
@@ -47,7 +53,8 @@ class Home extends Component
         return view('livewire.home.home', [
             'departments' => $departments,
             'assignedColors' => $assignedColors,
-            'employeeCounts' => $employeeCounts,
+            'employeeCountsAktif' => $employeeCountsAktif,
+            'employeeCountsNonAktif' => $employeeCountsNonAktif,
             'jumlahKaryawan' => $jumlahKaryawan,
             'jumlahKaryawanAktif' => $jumlahKaryawanAktif,
             'jumlahKaryawanNonAktif' => $jumlahKaryawanNonAktif
